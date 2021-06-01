@@ -46,7 +46,7 @@ retBmsStatus_en readBmsData(void)
   FILE * fileToBeRead= fopen("./Tx/dataBms.txt","r");
   if (fileToBeRead)
   {
-    for(;fscanf(file, "%f %f\n", &dataTemperature,&dataSoc)!=EOF;cntrLoop++)
+    for(;fscanf(fileToBeRead, "%f %f\n", &dataTemperature,&dataSoc)!=EOF;cntrLoop++)
     {
       bmsTempSocData.batteryTempearature[cntrLoop] = dataTemperature;
       bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
@@ -54,7 +54,7 @@ retBmsStatus_en readBmsData(void)
     bmsTempSocData.numOfData = cntrLoop;
     retBmsStatus= OK_STATUS;
   }
-  fclose(file);
+  fclose(fileToBeRead);
   return retBmsStatus;
 }
 
