@@ -4,5 +4,5 @@
 
 TEST_CASE("Check_1") 
 {
- REQUIRE(dataBmsMain (void) == OK_STATUS);
+ REQUIRE(dataBmsMain() == OK_STATUS);
 }
