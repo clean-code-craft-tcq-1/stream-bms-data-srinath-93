@@ -1,5 +1,5 @@
-#ifndef DATABMSTX_H_
-#define DATABMSTX_H_
+//#ifndef DATABMSTX_H_
+//#define DATABMSTX_H_
 
 /* Macro Declaration */
 #define ARRINDEXSIZE 50
@@ -24,4 +24,4 @@ retBmsStatus_en dataBmsMain(void);
 retBmsStatus_en readBmsData(void);
 void txBmsData(void);
 
-#endif  /* DATABMSTX_H_ */
+//#endif  /* DATABMSTX_H_ */
