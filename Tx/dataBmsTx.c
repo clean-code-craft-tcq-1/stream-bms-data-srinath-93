@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include "dataBmsTx.c.h"
+#include "dataBmsTx.h"
 
 /* global variable declaration */
 batteryReading_st bmsTempSocData;
