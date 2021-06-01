@@ -16,11 +16,12 @@ typedef struct
 {
   float batteryTempearature[ARRINDEXSIZE];
   float batterySoc[ARRINDEXSIZE];
+  int numOfData;
 }batteryReading_st;
 
 /* Function declaration */
-retBmsStatus_en dataBmsMain();
-retBmsStatus_en readBmsData();
-retBmsStatus_en txBmsData();
+retBmsStatus_en dataBmsMain(void);
+retBmsStatus_en readBmsData(void);
+void txBmsData(void);
 
 #endif  /* DATABMSTX_H_ */
