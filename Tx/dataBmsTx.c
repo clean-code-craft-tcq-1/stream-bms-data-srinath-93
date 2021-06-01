@@ -22,6 +22,7 @@ void txBmsData(void)
   while(cntrLoop < bmsTempSocData.numOfData)
   {
     printf("Battery Temperature[%d] -> %f \t\t Battery StateOfCharge[%d] -> %f\n",cntrLoop,bmsTempSocData.batteryTempearature[cntrLoop],cntrLoop,bmsTempSocData.batterySoc[cntrLoop]);
+    cntrLoop++;
   }
 }
 
