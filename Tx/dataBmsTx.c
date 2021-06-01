@@ -38,7 +38,7 @@ void txBmsData(void)
  */
 retBmsStatus_en readBmsData(void)
 {
-  retBmsStatus_en retBmsStatus;
+  retBmsStatus_en retBmsStatus = ERROR_STATUS;
   float dataTemperature = 0.0;
   float dataSoc = 0.0;
   int cntrLoop = 0;
@@ -70,7 +70,7 @@ retBmsStatus_en readBmsData(void)
  */
 retBmsStatus_en dataBmsMain(void)
 {
-  retBmsStatus_en retBmsStatus;
+  retBmsStatus_en retBmsStatus = ERROR_STATUS;
   retBmsStatus = readBmsData();
   if(retBmsStatus != ERROR_STATUS)
   {
