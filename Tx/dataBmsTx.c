@@ -17,12 +17,12 @@ batteryReading_st bmsTempSocData;
  */
 void txBmsData(void)
 {
-  int cntrLoop = 0;
+  int loopCntr = 0;
   printf("Recorded BMS Data \nBattery Temperature \t\t\t Battery StateOfCharge\n");
-  while(cntrLoop < bmsTempSocData.numOfData)
+  while(loopCntr < bmsTempSocData.numOfData)
   {
     printf("Battery Temperature[%d] -> %f \t\t Battery StateOfCharge[%d] -> %f\n",cntrLoop,bmsTempSocData.batteryTempearature[cntrLoop],cntrLoop,bmsTempSocData.batterySoc[cntrLoop]);
-    cntrLoop++;
+    loopCntr++;
   }
 }
 
@@ -38,7 +38,7 @@ void txBmsData(void)
  */
 retBmsStatus_en readBmsData(void)
 {
-  retBmsStatus_en retBmsStatus = ERROR_STATUS;
+  retBmsStatus_en bmsStatusRet = ERROR_STATUS;
   float dataTemperature = 0.0;
   float dataSoc = 0.0;
   int cntrLoop = 0;
@@ -53,10 +53,10 @@ retBmsStatus_en readBmsData(void)
       bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
     }
     bmsTempSocData.numOfData = cntrLoop;
-    retBmsStatus= OK_STATUS;
+    bmsStatusRet= OK_STATUS;
   }
   fclose(fileToBeRead);
-  return retBmsStatus;
+  return bmsStatusRet;
 }
 
 /*
