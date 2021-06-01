@@ -22,3 +22,5 @@ typedef struct
 retBmsStatus_en dataBmsMain();
 retBmsStatus_en readBmsData();
 retBmsStatus_en txBmsData();
+
+#endif  /* DATABMSTX_H_ */
