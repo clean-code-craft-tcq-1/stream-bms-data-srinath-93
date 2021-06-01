@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
 #include "dataBmsTx.h"
 
 /* global variable declaration */
