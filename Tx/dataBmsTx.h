@@ -20,8 +20,9 @@ typedef struct
 }batteryReading_st;
 
 /* Function declaration */
-retBmsStatus_en dataBmsMain(void);
-retBmsStatus_en readBmsData(void);
+retBmsStatus_en dataBmsMain(int runTimeIpNum);
+retBmsStatus_en readBmsData(int runTimeIpNum);
+char checkHaltRead(int runTimeIpNum, int loopCounter);
 void txBmsData(void);
 
 #endif  /* DATABMSTX_H_ */
