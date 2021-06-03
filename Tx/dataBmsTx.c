@@ -34,13 +34,15 @@ void txBmsData(void)
                           file
  **********************************************************************************************************************
  */
-retBmsStatus_en readBmsData(void)
+retBmsStatus_en readBmsData(int runTimeIpNum)
 {
   retBmsStatus_en bmsStatusRet = ERROR_STATUS;
   float dataTemperature = 0.0;
   float dataSoc = 0.0;
   int cntrLoop = 0;
-  bmsTempSocData.numOfData = 0;
+  int tempRunTimeIp = runTimeIpNum;
+  bmsTempSocData.numOfData = 0; 
+  char runTimeIp = 'y';
   
   FILE * fileToBeRead= fopen("./Tx/dataBms.txt","r");
   if (fileToBeRead)
@@ -49,6 +51,15 @@ retBmsStatus_en readBmsData(void)
     {
       bmsTempSocData.batteryTempearature[cntrLoop] = dataTemperature;
       bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
+      runTimeIp = checkHaltRead(runTimeIpNum, cntrLoop);
+      if(runTimeIp == 'n')
+      {
+        break;
+      }
+      else
+      { 
+        runTimeIpNum += tempRunTimeIp;
+      }
     }
     bmsTempSocData.numOfData = cntrLoop;
     bmsStatusRet= OK_STATUS;
@@ -57,6 +68,14 @@ retBmsStatus_en readBmsData(void)
   return bmsStatusRet;
 }
 
+char checkHaltRead(int runTimeIpNum, int loopCounter)
+{
+  if(loopCounter == runTimeIpNum)
+  {
+    /* provide input as 'n' to stop the data read else press 'y' */
+    runTimeIp = getc(stdin);
+  }
+}
 /*
  **********************************************************************************************************************
  * Service name         : dataBmsMain
@@ -66,10 +85,10 @@ retBmsStatus_en readBmsData(void)
  * Description          : Program to invoke reading of required bms datas and send them to console or reciever
  **********************************************************************************************************************
  */
-retBmsStatus_en dataBmsMain(void)
+retBmsStatus_en dataBmsMain(int runTimeIpNum)
 {
   retBmsStatus_en retBmsStatus = ERROR_STATUS;
-  retBmsStatus = readBmsData();
+  retBmsStatus = readBmsData(runTimeIpNum);
   if(retBmsStatus != ERROR_STATUS)
   {
     txBmsData();
