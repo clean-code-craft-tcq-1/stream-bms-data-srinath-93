@@ -70,11 +70,13 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
 
 char checkHaltRead(int runTimeIpNum, int loopCounter)
 {
-  char runTimeIp = 'y';
+  char runTimeIp;
+  char runTimeIpTemp = 'n';
   if(loopCounter == runTimeIpNum)
   {
     /* provide input as 'n' to stop the data read else press 'y' */
-    runTimeIp = getc(stdin);
+//    runTimeIp = getc(stdin);
+    runTimeIp = scanf(" %c ",&runTimeIp);
   }
   return runTimeIp;
 }
