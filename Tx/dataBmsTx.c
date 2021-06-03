@@ -76,9 +76,9 @@ char checkHaltRead(int runTimeIpNum, int loopCounter)
   {
     /* provide input as 'n' to stop the data read else press 'y' */
 //    runTimeIp = getc(stdin);
-    runTimeIp = scanf(" %c ",&runTimeIp);
+    runTimeIpTemp = scanf(" %c ",&runTimeIp);
   }
-  return runTimeIp;
+  return runTimeIpTemp;
 }
 /*
  **********************************************************************************************************************
