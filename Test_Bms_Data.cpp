@@ -4,10 +4,12 @@
 
 TEST_CASE(" Test case to check if data is read and sender sends data ") 
 {
- REQUIRE(dataBmsMain() == OK_STATUS);
+ int runTimeIpNum_u32 = 10;
+ REQUIRE(dataBmsMain(runTimeIpNum_u32) == OK_STATUS);
 }
 
 TEST_CASE(" Test case to check if data read is happening and returns ok status ") 
 {
- REQUIRE(readBmsData() == OK_STATUS);
+ int runTimeIpNum_u32 = 10;
+ REQUIRE(readBmsData(runTimeIpNum_u32) == OK_STATUS);
 }
