@@ -85,6 +85,7 @@ char checkHaltRead(int runTimeIpNum, int loopCounter)
 */
     while(fscanf(fileCheckHalt, "%c \n", &chInput)!=EOF)
     {
+      printf("Char input provided in file is %c \n");
       break;
     }
   }
