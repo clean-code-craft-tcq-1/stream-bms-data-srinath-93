@@ -52,7 +52,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
       bmsTempSocData.batteryTempearature[cntrLoop] = dataTemperature;
       bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
       runTimeIp = checkHaltRead(runTimeIpNum, cntrLoop);
-      if((runTimeIpNum == cntrLoop)&&(runTimeIp == 1))
+      if(runTimeIp == 1)
       {
         break;
       }
