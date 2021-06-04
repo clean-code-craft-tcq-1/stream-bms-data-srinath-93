@@ -75,7 +75,7 @@ char checkHaltRead(int runTimeIpNum, int loopCounter)
   char runTimeIp;
   char runTimeIpTemp = 'n';
 */
-  FILE * fileCheckHalt= fopen("./haltBmsRead.txt","r");
+  FILE * fileCheckHalt= fopen("haltBmsRead.txt","r");
   if((fileCheckHalt)&&(loopCounter == runTimeIpNum))
   {
     /* provide input to the file as 'y' to stop the data read else press 'n' */
@@ -88,6 +88,10 @@ char checkHaltRead(int runTimeIpNum, int loopCounter)
       printf("Char input provided in file is %c \n",chInput);
       break;
     }
+  }
+  else
+  {
+    printf("\ncould not open the file\n");
   }
   fclose(fileCheckHalt);
   return chInput;
