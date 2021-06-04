@@ -42,7 +42,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
   int cntrLoop = 0;
   int tempRunTimeIp = runTimeIpNum;
   bmsTempSocData.numOfData = 0; 
-  char runTimeIp = 'y';
+  char runTimeIp = 'n';
   
   FILE * fileToBeRead= fopen("./Tx/dataBms.txt","r");
   if (fileToBeRead)
@@ -52,7 +52,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
       bmsTempSocData.batteryTempearature[cntrLoop] = dataTemperature;
       bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
       runTimeIp = checkHaltRead(runTimeIpNum, cntrLoop);
-      if(runTimeIp == 'n')
+      if(runTimeIp == 'y')
       {
         break;
       }
@@ -70,15 +70,23 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
 
 char checkHaltRead(int runTimeIpNum, int loopCounter)
 {
+  int cntrLoop = 0;
+  char chInput ='n';
   char runTimeIp;
   char runTimeIpTemp = 'n';
-  if(loopCounter == runTimeIpNum)
+  FILE * fileCheckHalt= fopen("./haltBmsRead.txt","r");
+  if((fileCheckHalt)&&(loopCounter == runTimeIpNum))
   {
-    /* provide input as 'n' to stop the data read else press 'y' */
+    /* provide input to the file as 'y' to stop the data read else press 'n' */
 //    runTimeIp = getc(stdin);
-    runTimeIpTemp = scanf(" %c ",&runTimeIp);
+//    runTimeIpTemp = scanf(" %c ",&runTimeIp);
+    While(fscanf(fileToBeRead, "%c \n", &chInput)!=EOF)
+    {
+      break;
+    }
   }
-  return runTimeIpTemp;
+  fclose(fileCheckHalt);
+  return chInput;
 }
 /*
  **********************************************************************************************************************
