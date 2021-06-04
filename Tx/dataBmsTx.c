@@ -70,17 +70,20 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
 
 char checkHaltRead(int runTimeIpNum, int loopCounter)
 {
-  int cntrLoop = 0;
   char chInput ='n';
+/*
   char runTimeIp;
   char runTimeIpTemp = 'n';
+*/
   FILE * fileCheckHalt= fopen("./haltBmsRead.txt","r");
   if((fileCheckHalt)&&(loopCounter == runTimeIpNum))
   {
     /* provide input to the file as 'y' to stop the data read else press 'n' */
-//    runTimeIp = getc(stdin);
-//    runTimeIpTemp = scanf(" %c ",&runTimeIp);
-    While(fscanf(fileToBeRead, "%c \n", &chInput)!=EOF)
+/*
+    runTimeIp = getc(stdin);
+    runTimeIpTemp = scanf(" %c ",&runTimeIp);
+*/
+    while(fscanf(fileCheckHalt, "%c \n", &chInput)!=EOF)
     {
       break;
     }
