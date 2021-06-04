@@ -76,14 +76,16 @@ int checkHaltRead(int runTimeIpNum, int loopCounter)
   char runTimeIpTemp = 'n';
 */
   FILE * fileCheckHalt= fopen("./Tx/haltBmsRead.txt","r");
-  if((fileCheckHalt)&&(loopCounter == runTimeIpNum))
+  if(loopCounter == runTimeIpNum)
+  {
+  if(fileCheckHalt)
   {
     /* provide input to the file as 'y' to stop the data read else press 'n' */
 /*
     runTimeIp = getc(stdin);
     runTimeIpTemp = scanf(" %c ",&runTimeIp);
 */
-    while(fscanf(fileCheckHalt, "%d \n", &haltInput)!=EOF)
+    while(fscanf(fileCheckHalt, "%d\n", &haltInput)!=EOF)
     {
       printf("Input provided in file is %d \n",haltInput);
       break;
@@ -92,6 +94,7 @@ int checkHaltRead(int runTimeIpNum, int loopCounter)
   else
   {
     printf("\ncould not open the file\n");
+  }
   }
   fclose(fileCheckHalt);
   return haltInput;
