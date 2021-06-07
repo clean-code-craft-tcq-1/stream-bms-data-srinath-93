@@ -51,7 +51,6 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
     {
       bmsTempSocData.batteryTempearature[cntrLoop] = dataTemperature;
       bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
-      runTimeIp = checkStatusRead(runTimeIp,cntrLoop);
       if((runTimeIpNum==cntrLoop)&&(runTimeIp==0))
       {
         /* entering checkHaltRead function */
@@ -71,6 +70,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
           /*\n File pointer rewind \n*/
           runTimeIpNum += tempRunTimeIp;
         }
+        runTimeIp = checkStatusRead(runTimeIp,cntrLoop);
       }
     }
     bmsTempSocData.numOfData = cntrLoop;
@@ -108,7 +108,7 @@ int checkHaltRead()
 int checkStatusRead(int runTimeIpStatus, int cntrLoop)
 {
   int retValStatus=0;
-  if((runTimeIpStatus == 1)||(cntrLoop >= 100))
+  if((runTimeIpStatus == 1)||(cntrLoop > 95))
   {
     /* setting return value for checkReadStatus as 1 */
     retValStatus = 1;
