@@ -43,7 +43,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
   int tempRunTimeIp = runTimeIpNum;
   bmsTempSocData.numOfData = 0; 
   int runTimeIp = 0;
-  long f_size;
+  long int f_size;
   FILE * fileToBeRead= fopen("./Tx/dataBms.txt","r");
   long f_size = ftell(fileToBeRead);
   printf("file size is %ld \n",f_size);
