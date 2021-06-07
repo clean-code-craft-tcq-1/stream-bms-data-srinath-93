@@ -61,7 +61,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
         if(runTimeIp == 1)
         {
           printf("breaking the loop \n");
-          fseek(fileToBeRead,0,SEEK_END);
+          break;
         }
         else
         {
