@@ -70,8 +70,8 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
           /*\n File pointer rewind \n*/
           runTimeIpNum += tempRunTimeIp;
         }
-        runTimeIp = checkStatusRead(runTimeIp,cntrLoop);
       }
+      runTimeIp = checkStatusRead(runTimeIp,cntrLoop);
     }
     bmsTempSocData.numOfData = cntrLoop;
     bmsStatusRet= OK_STATUS;
