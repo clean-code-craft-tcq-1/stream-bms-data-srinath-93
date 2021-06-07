@@ -78,6 +78,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
   }
   printf("close the file \n");
   fclose(fileToBeRead);
+  printf("Final Lopp Counter value = %d\n",cntrLoop);
   return bmsStatusRet;
 }
 
