@@ -64,7 +64,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
         }
         else
         {
-          printf("rewinding the file pointer \n");
+          printf("rewinding the file pointer \nLopp Counter value = %d\n",cntrLoop);
           fseek(fileToBeRead,0,SEEK_SET);
 //          rewind(fileToBeRead);
           /*\n File pointer rewind \n*/
