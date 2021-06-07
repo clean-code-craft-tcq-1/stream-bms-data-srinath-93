@@ -60,7 +60,8 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
           printf("breaking the loop \n");
           break;
       }
-      else if(runTimeIp == 0)
+      //else if(runTimeIp == 0)
+      else if(runTimeIpNum == cntrLoop)
       {
           printf("rewinding the file pointer \nLopp Counter value = %d\n",cntrLoop);
           fseek(fileToBeRead,0,SEEK_SET);
