@@ -24,6 +24,7 @@ retBmsStatus_en dataBmsMain(int runTimeIpNum);
 retBmsStatus_en readBmsData(int runTimeIpNum);
 int checkHaltRead(void);
 int checkStatusRead(int runTimeIpStatus, int cntrLoop);
+int validateReadBmsData(int runTimeIpdata, int cntrLoop)
 void txBmsData(void);
 
 #endif  /* DATABMSTX_H_ */
