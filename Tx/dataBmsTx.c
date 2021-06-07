@@ -44,7 +44,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
   bmsTempSocData.numOfData = 0; 
   int runTimeIp = 0;
   FILE * fileToBeRead= fopen("./Tx/dataBms.txt","r");
-  printf("file size is %ld \n",f_size);
+  /* check if file is valid or not */
   if (fileToBeRead)
   {
     for(;fscanf(fileToBeRead, "%f %f\n", &dataTemperature,&dataSoc)!=EOF;cntrLoop++)
@@ -88,7 +88,6 @@ int validateReadBmsData(int runTimeIpdata, int cntrLoop)
   {
     /* entering checkHaltRead function */
     runTimeIp_1 = checkHaltRead();
-    printf("checkHaltRead return value in file is %d \n",runTimeIp_1);
   }
   runTimeIp_2 = checkStatusRead(runTimeIp_1,runTimeIpdata,cntrLoop);
   retValStatus = runTimeIp_2;
