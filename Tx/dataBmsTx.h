@@ -2,7 +2,7 @@
 #define DATABMSTX_H_
 
 /* Macro Declaration */
-#define ARRINDEXSIZE 50
+#define ARRINDEXSIZE 1100
 
 /* Enum declarations */
 typedef enum
