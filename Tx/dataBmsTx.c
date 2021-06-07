@@ -51,6 +51,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
     {
       bmsTempSocData.batteryTempearature[cntrLoop] = dataTemperature;
       bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
+      runTimeIp = checkStatusRead(haltInput,loopCounter);
       if((runTimeIpNum==cntrLoop)&&(runTimeIp==0))
       {
         /* entering checkHaltRead function */
@@ -83,7 +84,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
 int checkHaltRead(int loopCounter)
 {
   int haltInput = 0;
-  int retValStatus = 0;
+//  int retValStatus = 0;
   FILE * fileCheckHalt= fopen("./Tx/haltBmsRead.txt","r");
     if(fileCheckHalt)
     {
@@ -98,9 +99,9 @@ int checkHaltRead(int loopCounter)
       printf("\ncould not open the file\n");
     }
   fclose(fileCheckHalt);
-  retValStatus = checkStatusRead(haltInput,loopCounter);
-  printf("checkStatusRead return value in file is %d \n",retValStatus);
-  return (haltInput&retValStatus);
+//  retValStatus = checkStatusRead(haltInput,loopCounter);
+//  printf("checkStatusRead return value in file is %d \n",retValStatus);
+  return (haltInput);
 }
 
 int checkStatusRead(int runTimeIpStatus, int cntrLoop)
