@@ -81,7 +81,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
   return bmsStatusRet;
 }
 
-int checkHaltRead(int loopCounter)
+int checkHaltRead()
 {
   int haltInput = 0;
 //  int retValStatus = 0;
