@@ -18,13 +18,14 @@ typedef struct
   float batteryTempearature[ARRINDEXSIZE];
   float batterySoc[ARRINDEXSIZE];
   int numOfData;
+  int maxDataToStream;
 }batteryReading_st;
 
 /* Function declaration */
-retBmsStatus_en dataBmsMain(int runTimeIpNum);
+retBmsStatus_en dataBmsMain(int runTimeIpNum,int maxDataStreamRange);
 retBmsStatus_en readBmsData(int runTimeIpNum);
 int checkHaltRead(void);
-int checkStatusRead(int runTimeIpStatus, int cntrLoop);
+int checkStatusRead(int runTimeIpStatus,int runTimeIpdata,int cntrLoop);
 int validateReadBmsData(int runTimeIpdata, int cntrLoop);
 void txBmsData(void);
 
