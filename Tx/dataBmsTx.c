@@ -60,13 +60,13 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
         if(runTimeIp == 1)
         {
           printf("breaking the loop \n");
-          break;
+          fseek(fileToBeRead,0,SEEK_END);
         }
         else
         {
-          printf("rewind the file pointer \n");
- //         fseek(fileToBeRead,0,SEEK_SET);
-          rewind(fileToBeRead);
+          printf("rewinding the file pointer \n");
+          fseek(fileToBeRead,0,SEEK_SET);
+//          rewind(fileToBeRead);
           /*\n File pointer rewind \n*/
           runTimeIpNum += tempRunTimeIp;
         }
