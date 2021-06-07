@@ -22,7 +22,7 @@ typedef struct
 /* Function declaration */
 retBmsStatus_en dataBmsMain(int runTimeIpNum);
 retBmsStatus_en readBmsData(int runTimeIpNum);
-int checkHaltRead();
+int checkHaltRead(void);
 int checkStatusRead(int runTimeIpStatus, int cntrLoop);
 void txBmsData(void);
 
