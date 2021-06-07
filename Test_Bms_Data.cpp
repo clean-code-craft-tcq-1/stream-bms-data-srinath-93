@@ -4,7 +4,7 @@
 
 TEST_CASE(" Test case to check if data is read and sender sends data ") 
 {
- int runTimeIpNum_u32 = 48;
+ int runTimeIpNum_u32 = 50;
  REQUIRE(dataBmsMain(runTimeIpNum_u32-1) == OK_STATUS);
 }
 
