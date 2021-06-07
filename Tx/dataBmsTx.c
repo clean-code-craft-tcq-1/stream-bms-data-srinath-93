@@ -64,7 +64,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
         }
         else
         {
-          printf("rewind the file pointer \n",runTimeIp);
+          printf("rewind the file pointer \n");
           fseek(fileToBeRead, 0, SEEK_END);
           /*\n File pointer rewind \n*/
           runTimeIpNum += tempRunTimeIp;
@@ -74,6 +74,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
     bmsTempSocData.numOfData = cntrLoop;
     bmsStatusRet= OK_STATUS;
   }
+  printf("close the file \n");
   fclose(fileToBeRead);
   return bmsStatusRet;
 }
