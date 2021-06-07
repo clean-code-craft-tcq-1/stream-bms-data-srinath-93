@@ -55,7 +55,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
       if((runTimeIpNum==cntrLoop)&&(runTimeIp==0))
       {
         /* entering checkHaltRead function */
-        runTimeIp = checkHaltRead(cntrLoop);
+        runTimeIp = checkHaltRead();
         printf("checkHaltRead return value in file is %d \n",runTimeIp);
         /* when return value is 1, halt requested or max counter value reached */
         if(runTimeIp == 1)
