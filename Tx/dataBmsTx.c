@@ -96,7 +96,7 @@ int validateReadBmsData(int runTimeIpdata, int cntrLoop)
     runTimeIp_1 = checkHaltRead();
     printf("checkHaltRead return value in file is %d \n",runTimeIp_1);
   }
-  runTimeIp_2 = checkStatusRead(runTimeIp_1,cntrLoop);
+  runTimeIp_2 = checkStatusRead(runTimeIp_1,runTimeIpdata,cntrLoop);
   retValStatus = runTimeIp_2;
 //  retValStatus = runTimeIp_1|runTimeIp_2;
 //  if(retValStatus == 0)
@@ -129,13 +129,21 @@ int checkHaltRead()
   return (haltInput);
 }
 
-int checkStatusRead(int runTimeIpStatus, int cntrLoop)
+int checkStatusRead(int runTimeIpStatus,int runTimeIpdata,int cntrLoop)
 {
   int retValStatus=2;
-  if((runTimeIpStatus == 1)||(cntrLoop > Max_Count(100)))
+  if((runTimeIpStatus == 1)||(cntrLoop > Max_Count(bmsTempSocData.maxDataToStream)))
   {
     /* setting return value for checkReadStatus as 1 */
     retValStatus = 1;
+  }
+  else if(runTimeIpdata == cntrLoop)
+  {
+    retValStatus = 0;
+  }
+  else
+  {
+    /* do nothing */
   }
   return retValStatus;
 }
@@ -148,8 +156,9 @@ int checkStatusRead(int runTimeIpStatus, int cntrLoop)
  * Description          : Program to invoke reading of required bms datas and send them to console or reciever
  **********************************************************************************************************************
  */
-retBmsStatus_en dataBmsMain(int runTimeIpNum)
+retBmsStatus_en dataBmsMain(int runTimeIpNum, int maxDataStreamRange)
 {
+  bmsTempSocData.maxDataToStream = maxDataStreamRange;
   retBmsStatus_en retBmsStatus = ERROR_STATUS;
   retBmsStatus = readBmsData(runTimeIpNum);
   if(retBmsStatus != ERROR_STATUS)
