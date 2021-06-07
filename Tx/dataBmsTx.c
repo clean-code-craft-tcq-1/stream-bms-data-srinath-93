@@ -51,15 +51,19 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
     {
       bmsTempSocData.batteryTempearature[cntrLoop] = dataTemperature;
       bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
-      runTimeIp = checkHaltRead(runTimeIpNum, cntrLoop);
-      if(runTimeIp == 1)
+      if((runTimeIpNum==cntrLoop)&&(runTimeIp==0))
       {
-        break;
+        runTimeIp = checkHaltRead(cntrLoop);
+        if(runTimeIp == 1)
+        {
+          break;
+        }
+        else
+        {
+          fseek(fileToBeRead, 0, SEEK_END);
+          runTimeIpNum += tempRunTimeIp;
+        }
       }
-//      else
-//      { 
-//        runTimeIpNum += tempRunTimeIp;
-//      }
     }
     bmsTempSocData.numOfData = cntrLoop;
     bmsStatusRet= OK_STATUS;
@@ -68,36 +72,36 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
   return bmsStatusRet;
 }
 
-int checkHaltRead(int runTimeIpNum, int loopCounter)
+int checkHaltRead(int loopCounter)
 {
   int haltInput = 0;
-/*
-  char runTimeIp;
-  char runTimeIpTemp = 'n';
-*/
+  int retValStatus = 0;
   FILE * fileCheckHalt= fopen("./Tx/haltBmsRead.txt","r");
-  if(loopCounter == runTimeIpNum)
-  {
-  if(fileCheckHalt)
-  {
-    /* provide input to the file as 'y' to stop the data read else press 'n' */
-/*
-    runTimeIp = getc(stdin);
-    runTimeIpTemp = scanf(" %c ",&runTimeIp);
-*/
-    while(fscanf(fileCheckHalt, "%d\n", &haltInput)!=EOF)
+    if(fileCheckHalt)
     {
-      printf("Input provided in file is %d \n",haltInput);
-      break;
+    /* provide input to the file as 1 to stop the data read else provide 0 */
+      while(fscanf(fileCheckHalt, "%d\n", &haltInput)!=EOF)
+      {
+        printf("Input provided in file is %d \n",haltInput);
+      }
     }
-  }
-  else
-  {
-    printf("\ncould not open the file\n");
-  }
-  }
+    else
+    {
+      printf("\ncould not open the file\n");
+    }
   fclose(fileCheckHalt);
-  return haltInput;
+  retValStatus = checkStatusRead(haltInput,loopCounter);
+  return (haltInput&retValStatus);
+}
+
+int checkStatusRead(int runTimeIpStatus, int cntrLoop)
+{
+  int retValStatus=0;
+  if((runTimeIpStatus == 1)||(cntrLoop>1000))
+  {
+    retValStatus = 1;
+  }
+  return retValStatus;
 }
 /*
  **********************************************************************************************************************
