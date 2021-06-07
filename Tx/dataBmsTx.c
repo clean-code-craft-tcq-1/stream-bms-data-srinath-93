@@ -53,7 +53,9 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
       bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
       if((runTimeIpNum==cntrLoop)&&(runTimeIp==0))
       {
-        runTimeIp = checkHaltRead(cntrLoop);
+        /* entering checkHaltRead function */
+        runTimeIp = checkHaltRead(cntrLoop); 
+        /* when return value is 1, halt requested or max counter value reached */
         if(runTimeIp == 1)
         {
           break;
@@ -92,14 +94,16 @@ int checkHaltRead(int loopCounter)
     }
   fclose(fileCheckHalt);
   retValStatus = checkStatusRead(haltInput,loopCounter);
+  printf("checkStatusRead return value in file is %d \n",retValStatus);
   return (haltInput&retValStatus);
 }
 
 int checkStatusRead(int runTimeIpStatus, int cntrLoop)
 {
   int retValStatus=0;
-  if((runTimeIpStatus == 1)||(cntrLoop>1000))
+  if((runTimeIpStatus == 1)||(cntrLoop >= 1000))
   {
+    /* setting return value for checkReadStatus as 1 */
     retValStatus = 1;
   }
   return retValStatus;
