@@ -43,9 +43,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
   int tempRunTimeIp = runTimeIpNum;
   bmsTempSocData.numOfData = 0; 
   int runTimeIp = 0;
-  long f_size;
   FILE * fileToBeRead= fopen("./Tx/dataBms.txt","r");
-  f_size = ftell(fileToBeRead);
   printf("file size is %ld \n",f_size);
   if (fileToBeRead)
   {
@@ -55,20 +53,18 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
       bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
       /* check validateReadBmsData function */
       runTimeIp = validateReadBmsData(runTimeIpNum,cntrLoop);
-      printf("validateReadBmsData return value in file is %d \n",runTimeIp);
       /* when return value is 1, halt requested or max counter value reached */
       if(runTimeIp == 1)
       {
           printf("breaking the loop \n");
           break;
       }
-      //else if(runTimeIp == 0)
-      else if(runTimeIpNum == cntrLoop)
+      else if(runTimeIp == 0)
       {
-          printf("rewinding the file pointer \nLopp Counter value = %d\n",cntrLoop);
+          /* rewinding the file pointer */
           fseek(fileToBeRead,0,SEEK_SET);
 //          rewind(fileToBeRead);
-          /*\n File pointer rewind \n*/
+          /* File pointer rewind */
           runTimeIpNum += tempRunTimeIp;
       }
       else
@@ -79,9 +75,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
     bmsTempSocData.numOfData = cntrLoop;
     bmsStatusRet= OK_STATUS;
   }
-  printf("close the file \n");
   fclose(fileToBeRead);
-  printf("Final Lopp Counter value = %d\n",cntrLoop);
   return bmsStatusRet;
 }
 
@@ -98,18 +92,12 @@ int validateReadBmsData(int runTimeIpdata, int cntrLoop)
   }
   runTimeIp_2 = checkStatusRead(runTimeIp_1,runTimeIpdata,cntrLoop);
   retValStatus = runTimeIp_2;
-//  retValStatus = runTimeIp_1|runTimeIp_2;
-//  if(retValStatus == 0)
-//  {
-//    retValStatus +=2;
-//  }
   return retValStatus;
 }
 
 int checkHaltRead()
 {
   int haltInput = 0;
-//  int retValStatus = 0;
   FILE * fileCheckHalt= fopen("./Tx/haltBmsRead.txt","r");
     if(fileCheckHalt)
     {
@@ -124,8 +112,7 @@ int checkHaltRead()
       printf("\ncould not open the file\n");
     }
   fclose(fileCheckHalt);
-//  retValStatus = checkStatusRead(haltInput,loopCounter);
-//  printf("checkStatusRead return value in file is %d \n",retValStatus);
+  /* send the updated return value */
   return (haltInput);
 }
 
@@ -134,11 +121,12 @@ int checkStatusRead(int runTimeIpStatus,int runTimeIpdata,int cntrLoop)
   int retValStatus=2;
   if((runTimeIpStatus == 1)||(cntrLoop > Max_Count(bmsTempSocData.maxDataToStream)))
   {
-    /* setting return value for checkReadStatus as 1 */
+    /* setting return value for checkReadStatus as 1 denoting halt data stream */
     retValStatus = 1;
   }
   else if(runTimeIpdata == cntrLoop)
   {
+    /* setting return value for checkReadStatus as 0 denoting rewind the data stream */
     retValStatus = 0;
   }
   else
