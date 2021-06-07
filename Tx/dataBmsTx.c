@@ -51,9 +51,9 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
     {
       bmsTempSocData.batteryTempearature[cntrLoop] = dataTemperature;
       bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
-      /* entering checkHaltRead function */
+      /* check validateReadBmsData function */
       runTimeIp = validateReadBmsData(runTimeIpNum,cntrLoop);
-      printf("checkHaltRead return value in file is %d \n",runTimeIp);
+      printf("validateReadBmsData return value in file is %d \n",runTimeIp);
       /* when return value is 1, halt requested or max counter value reached */
       if(runTimeIp == 1)
       {
@@ -94,11 +94,12 @@ int validateReadBmsData(int runTimeIpdata, int cntrLoop)
     printf("checkHaltRead return value in file is %d \n",runTimeIp_1);
   }
   runTimeIp_2 = checkStatusRead(runTimeIp_1,cntrLoop);
-  retValStatus = runTimeIp_1|runTimeIp_2;
-  if(retValStatus == 0)
-  {
-    retValStatus +=2;
-  }
+  retValStatus = runTimeIp_2;
+//  retValStatus = runTimeIp_1|runTimeIp_2;
+//  if(retValStatus == 0)
+//  {
+//    retValStatus +=2;
+//  }
   return retValStatus;
 }
 
@@ -127,8 +128,8 @@ int checkHaltRead()
 
 int checkStatusRead(int runTimeIpStatus, int cntrLoop)
 {
-  int retValStatus=0;
-  if((runTimeIpStatus == 1)||(cntrLoop > 95))
+  int retValStatus=2;
+  if((runTimeIpStatus == 1)||(cntrLoop > Max_Count(100)))
   {
     /* setting return value for checkReadStatus as 1 */
     retValStatus = 1;
