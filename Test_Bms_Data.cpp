@@ -6,7 +6,7 @@ TEST_CASE(" Test case to check if data is read and sender sends data ")
 {
  /* This will stream datas in multiples of 100 */
  int runTimeIpNum_u32 = 50;
- int maxStreamingRange = 100;
+ int maxStreamingRange = 20;
  REQUIRE(dataBmsMain((runTimeIpNum_u32-1), maxStreamingRange) == OK_STATUS);
 }
 
