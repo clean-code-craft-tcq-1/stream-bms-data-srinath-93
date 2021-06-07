@@ -51,27 +51,27 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
     {
       bmsTempSocData.batteryTempearature[cntrLoop] = dataTemperature;
       bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
-      if((runTimeIpNum==cntrLoop)&&(runTimeIp==0))
+      /* entering checkHaltRead function */
+      runTimeIp = validateReadBmsData(runTimeIpNum,cntrLoop);
+      printf("checkHaltRead return value in file is %d \n",runTimeIp);
+      /* when return value is 1, halt requested or max counter value reached */
+      if(runTimeIp == 1)
       {
-        /* entering checkHaltRead function */
-        runTimeIp = checkHaltRead();
-        printf("checkHaltRead return value in file is %d \n",runTimeIp);
-        /* when return value is 1, halt requested or max counter value reached */
-        if(runTimeIp == 1)
-        {
           printf("breaking the loop \n");
           break;
-        }
-        else
-        {
+      }
+      else if(runTimeIp == 0)
+      {
           printf("rewinding the file pointer \nLopp Counter value = %d\n",cntrLoop);
           fseek(fileToBeRead,0,SEEK_SET);
 //          rewind(fileToBeRead);
           /*\n File pointer rewind \n*/
           runTimeIpNum += tempRunTimeIp;
-        }
       }
-      runTimeIp = checkStatusRead(runTimeIp,cntrLoop);
+      else
+      {
+        /* Do nothing */
+      }
     }
     bmsTempSocData.numOfData = cntrLoop;
     bmsStatusRet= OK_STATUS;
@@ -80,6 +80,26 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
   fclose(fileToBeRead);
   printf("Final Lopp Counter value = %d\n",cntrLoop);
   return bmsStatusRet;
+}
+
+int validateReadBmsData(int runTimeIpdata, int cntrLoop)
+{
+  int runTimeIp_1 = 0;
+  int runTimeIp_2 = 0;
+  int retValStatus = 0;
+  if(runTimeIpdata==cntrLoop)
+  {
+    /* entering checkHaltRead function */
+    runTimeIp_1 = checkHaltRead();
+    printf("checkHaltRead return value in file is %d \n",runTimeIp_1);
+  }
+  runTimeIp_2 = checkStatusRead(runTimeIp_1,cntrLoop);
+  retValStatus = runTimeIp_1|runTimeIp_2;
+  if(retValStatus == 0)
+  {
+    retValStatus +=2;
+  }
+  return retValStatus;
 }
 
 int checkHaltRead()
