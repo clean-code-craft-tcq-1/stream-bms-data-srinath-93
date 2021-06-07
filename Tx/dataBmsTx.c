@@ -105,7 +105,7 @@ int checkHaltRead(int loopCounter)
 int checkStatusRead(int runTimeIpStatus, int cntrLoop)
 {
   int retValStatus=0;
-  if((runTimeIpStatus == 1)||(cntrLoop >= 1000))
+  if((runTimeIpStatus == 1)||(cntrLoop >= 250))
   {
     /* setting return value for checkReadStatus as 1 */
     retValStatus = 1;
