@@ -34,14 +34,14 @@ void txBmsData(void)
                           file
  **********************************************************************************************************************
  */
-retBmsStatus_en readBmsData(int runTimeIpNum)
+retBmsStatus_en readBmsData(int runTimeIpNo)
 {
   retBmsStatus_en bmsStatusRet = ERROR_STATUS;
   FILE * fileToOpen= fopen("./Tx/dataBms.txt","r");
   /* check if file is valid or not */
   if (fileToOpen)
   {
-    bmsStatusRet = performBmsDataRead(fileToOpen);
+    bmsStatusRet = performBmsDataRead(fileToOpen, runTimeIpNo);
   }
   else
   {
@@ -51,7 +51,7 @@ retBmsStatus_en readBmsData(int runTimeIpNum)
   return bmsStatusRet;
 }
 
-retBmsStatus_en performBmsDataRead(FILE * fileToBeRead)
+retBmsStatus_en performBmsDataRead(FILE * fileToBeRead,int runTimeIpNum)
 {
   retBmsStatus_en bmsStatusRet = ERROR_STATUS;
   float dataTemperature = 0.0;
