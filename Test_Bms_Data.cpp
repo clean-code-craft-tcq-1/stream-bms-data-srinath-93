@@ -12,9 +12,20 @@ TEST_CASE(" Test case to check if data is read and sender sends data ")
 
 TEST_CASE(" Test case to check if user request to halt the read after (100-1) as max count ") 
 {
- /* Note: haltBmsRead.txt contains value as 0 in this case, so change in file as 1 and try the test case */
+ /* Note: haltBmsRead.txt contains value as 0 in this case */
  /* This will stream only 100 datas */
  int runTimeIpNum_u32 = 100;
  int maxStreamingRange = 100;
  REQUIRE(dataBmsMain((runTimeIpNum_u32-1),maxStreamingRange) == OK_STATUS);
 }
+
+/*
+TEST_CASE(" Test case to check if user request to halt the read after (100-1) as max count ") 
+{
+ // Note: haltBmsRead.txt contains value as 0 in this case, so change in file as 1 and try the test case
+ // This will stream only 100 datas
+ int runTimeIpNum_u32 = 100;
+ int maxStreamingRange = 100;
+ REQUIRE(dataBmsMain((runTimeIpNum_u32-1),maxStreamingRange) == OK_STATUS);
+}
+*/
