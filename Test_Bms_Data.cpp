@@ -27,7 +27,7 @@ TEST_CASE(" Test case to check if user request to halt the read after (100-1) as
 }
 
 
-TEST_CASE(" Test case to check if user request to halt the read after (100-1) as max count ") 
+TEST_CASE(" Test case to check if user request to halt the read after (10-1) as max count ") 
 {
  // Note: haltBmsRead.txt contains value as 0 in this case, so change in file as 1 and try the test case
  // This will stream only 10 datas, since it will perform a user request check if user wants to halt the streaming of data
