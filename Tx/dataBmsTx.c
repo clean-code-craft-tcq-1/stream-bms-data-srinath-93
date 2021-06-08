@@ -37,46 +37,56 @@ void txBmsData(void)
 retBmsStatus_en readBmsData(int runTimeIpNum)
 {
   retBmsStatus_en bmsStatusRet = ERROR_STATUS;
+  FILE * fileToOpen= fopen("./Tx/dataBms.txt","r");
+  /* check if file is valid or not */
+  if (fileToOpen)
+  {
+    bmsStatusRet = performBmsDataRead(fileToOpen);
+  }
+  else
+  {
+	printf("Could not open file and reporting error status\n");
+  }	
+  fclose(fileToOpen);
+  return bmsStatusRet;
+}
+
+retBmsStatus_en performBmsDataRead(FILE * fileToBeRead)
+{
+  retBmsStatus_en bmsStatusRet = ERROR_STATUS;
   float dataTemperature = 0.0;
   float dataSoc = 0.0;
   int cntrLoop = 0;
   int tempRunTimeIp = runTimeIpNum;
   bmsTempSocData.numOfData = 0; 
   int runTimeIp = 0;
-  FILE * fileToBeRead= fopen("./Tx/dataBms.txt","r");
-  /* check if file is valid or not */
-  if (fileToBeRead)
+  for(;fscanf(fileToBeRead, "%f %f\n", &dataTemperature,&dataSoc)!=EOF;cntrLoop++)
   {
-    for(;fscanf(fileToBeRead, "%f %f\n", &dataTemperature,&dataSoc)!=EOF;cntrLoop++)
+    bmsTempSocData.batteryTempearature[cntrLoop] = dataTemperature;
+    bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
+    /* check validateReadBmsData function */
+    runTimeIp = validateReadBmsData(runTimeIpNum,cntrLoop);
+    /* when return value is 1, halt requested or max counter value reached */
+    if(runTimeIp == 1)
     {
-      bmsTempSocData.batteryTempearature[cntrLoop] = dataTemperature;
-      bmsTempSocData.batterySoc[cntrLoop] = dataSoc;
-      /* check validateReadBmsData function */
-      runTimeIp = validateReadBmsData(runTimeIpNum,cntrLoop);
-      /* when return value is 1, halt requested or max counter value reached */
-      if(runTimeIp == 1)
-      {
-          printf("breaking the loop \n");
-          break;
-      }
-      else if(runTimeIp == 0)
-      {
-          /* rewinding the file pointer */
-          fseek(fileToBeRead,0,SEEK_SET);
-//          rewind(fileToBeRead);
-          /* File pointer rewind */
-          runTimeIpNum += tempRunTimeIp;
-      }
-      else
-      {
-        /* Do nothing */
-      }
+        printf("breaking the loop \n");
+        break;
     }
+    else if(runTimeIp == 0)
+    {
+        /* rewinding the file pointer */
+        fseek(fileToBeRead,0,SEEK_SET);
+//        rewind(fileToBeRead);
+        runTimeIpNum += tempRunTimeIp;
+    }
+    else
+    {
+      /* Do nothing */
+    }
+  }
     bmsTempSocData.numOfData = cntrLoop;
     bmsStatusRet= OK_STATUS;
-  }
-  fclose(fileToBeRead);
-  return bmsStatusRet;
+  return bmsStatusRet;  
 }
 
 int validateReadBmsData(int runTimeIpdata, int cntrLoop)
