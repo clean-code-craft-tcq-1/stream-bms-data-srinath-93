@@ -27,11 +27,11 @@ void txBmsData(void)
 /*
  **********************************************************************************************************************
  * Service name         : readBmsData
- * Syntax               : retBmsStatus_en readBmsData(void)
- * param[in]            : None
+ * Syntax               : retBmsStatus_en readBmsData(int runTimeIpNo)
+ * param[in]            : runTimeIpNo
  * return               : OK_STATUS, ERROR_STATUS
- * Description          : Program to read battery health that includes temperature, state of charge from a recorded 
-                          file
+ * Description          : invokes the Program to read battery health that includes temperature, state of charge from a recorded 
+                          file and report success or failure
  **********************************************************************************************************************
  */
 retBmsStatus_en readBmsData(int runTimeIpNo)
@@ -51,6 +51,17 @@ retBmsStatus_en readBmsData(int runTimeIpNo)
   return bmsStatusRet;
 }
 
+/*
+ **********************************************************************************************************************
+ * Service name         : performBmsDataRead
+ * Syntax               : retBmsStatus_en performBmsDataRead(FILE * fileToBeRead,int runTimeIpNum)
+ * param[inout]         : fileToBeRead
+ * param[in]            : runTimeIpNum
+ * return               : OK_STATUS, ERROR_STATUS
+ * Description          : Program to read battery health that includes temperature, state of charge from a recorded 
+                          file
+ **********************************************************************************************************************
+ */
 retBmsStatus_en performBmsDataRead(FILE * fileToBeRead,int runTimeIpNum)
 {
   retBmsStatus_en bmsStatusRet = ERROR_STATUS;
@@ -89,6 +100,16 @@ retBmsStatus_en performBmsDataRead(FILE * fileToBeRead,int runTimeIpNum)
   return bmsStatusRet;  
 }
 
+/*
+ **********************************************************************************************************************
+ * Service name         : validateReadBmsData
+ * Syntax               : int readBmsData(int runTimeIpdata, int cntrLoop)
+ * param[in]            : runTimeIpdata
+ * param[in]            : cntrLoop
+ * return               : 0, 1
+ * Description          : Program to verify checks like max count or halt during read operation of Bms data 
+ **********************************************************************************************************************
+ */
 int validateReadBmsData(int runTimeIpdata, int cntrLoop)
 {
   int runTimeIp_1 = 0;
@@ -104,10 +125,21 @@ int validateReadBmsData(int runTimeIpdata, int cntrLoop)
   return retValStatus;
 }
 
+/*
+ **********************************************************************************************************************
+ * Service name         : checkHaltRead
+ * Syntax               : int checkHaltRead()
+ * param[in]            : none
+ * return               : 0, 1
+ * Description          : Program to verify and return respective value if halt is requested 
+ **********************************************************************************************************************
+ */
 int checkHaltRead()
 {
   int haltInput = 0;
+  /* open the user request file */
   FILE * fileCheckHalt= fopen("./Tx/haltBmsRead.txt","r");
+    /* check if the opened file is valid or not */
     if(fileCheckHalt)
     {
     /* provide input to the file as 1 to stop the data read else provide 0 */
@@ -125,6 +157,18 @@ int checkHaltRead()
   return (haltInput);
 }
 
+/*
+ **********************************************************************************************************************
+ * Service name         : checkStatusRead
+ * Syntax               : int checkStatusRead(int runTimeIpStatus,int runTimeIpdata,int cntrLoop)
+ * param[in]            : runTimeIpStatus
+ * param[in]            : runTimeIpdata
+ * param[in]            : cntrLoop
+ * return               : 0, 1, 2
+ * Description          : Program to verify and return respective value to return based on max count, if halt is 
+                          requested or if the requested count and loop counter value is same
+ **********************************************************************************************************************
+ */
 int checkStatusRead(int runTimeIpStatus,int runTimeIpdata,int cntrLoop)
 {
   int retValStatus=2;
