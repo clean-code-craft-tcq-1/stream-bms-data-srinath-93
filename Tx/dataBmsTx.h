@@ -2,7 +2,7 @@
 #define DATABMSTX_H_
 
 /* Macro Declaration */
-#define ARRINDEXSIZE 512
+#define ARRINDEXSIZE 1000
 #define Max_Count(x) x*5 /* maintaining lesser than array index value */
 
 /* Enum declarations */
