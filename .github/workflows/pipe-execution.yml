@@ -44,4 +44,4 @@ jobs:
         flake8 . --count --exit-zero --max-line-length=80 --ignore=E111,E121,E126 --statistics
         
     - name: Run
-      run: python ./testchecker | Receiver/inputProcessor.py
+      run: ./testchecker | Receiver/inputProcessor.py
