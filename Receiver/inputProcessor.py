@@ -4,7 +4,7 @@ def getBMSData():
     final_bms_data = []
     while(True):
         bms_details = input()
-        bms_details = simpleMovingAverage.formatInputStream(bms_details)
+        bms_details = formatInputStream(bms_details)
         final_bms_data.append(bms_details)
         if len(final_bms_data) >= 5:
             simpleMovingAverage.calculateAvg(final_bms_data)
