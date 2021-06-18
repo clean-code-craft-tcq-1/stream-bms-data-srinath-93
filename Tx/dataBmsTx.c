@@ -16,10 +16,9 @@ batteryReading_st bmsTempSocData;
 void txBmsData(void)
 {
   int loopCntr = 0;
-  printf("Recorded BMS Data \nBattery Temperature \t\t\t Battery StateOfCharge\n");
   while(loopCntr < bmsTempSocData.numOfData)
   {
-    printf("Battery Temperature[%d] -> %f \t\t Battery StateOfCharge[%d] -> %f\n",loopCntr,bmsTempSocData.batteryTempearature[loopCntr],loopCntr,bmsTempSocData.batterySoc[loopCntr]);
+    printf("Temperature = %f, StateOfCharge = %f\n",bmsTempSocData.batteryTempearature[loopCntr],bmsTempSocData.batterySoc[loopCntr]);
     loopCntr++;
   }
 }
@@ -145,7 +144,7 @@ int checkHaltRead()
     /* provide input to the file as 1 to stop the data read else provide 0 */
       while(fscanf(fileCheckHalt, "%d\n", &haltInput)!=EOF)
       {
-        printf("Input provided in file is %d \n",haltInput);
+        ;
       }
     }
     else
