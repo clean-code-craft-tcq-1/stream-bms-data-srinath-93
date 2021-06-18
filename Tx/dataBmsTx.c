@@ -79,7 +79,7 @@ retBmsStatus_en performBmsDataRead(FILE * fileToBeRead,int runTimeIpNum)
     /* when return value is 1, halt requested or max counter value reached */
     if(runTimeIp == 1)
     {
-        printf("breaking the loop \n");
+//        printf("breaking the loop \n");
         break;
     }
     else if(runTimeIp == 0)
