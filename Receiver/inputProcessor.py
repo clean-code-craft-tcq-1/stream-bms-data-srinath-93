@@ -30,6 +30,7 @@ def parameterSeperation(bms_details):
     return list_temp,list_soc
 
 def formatInputStream(bms_details):
+    bms_details = bms_details.replace('\n','')
     bms_details = bms_details.replace(' ' ,'')
     bms_details = bms_details.split(',')
     list_temp,list_soc = parameterSeperation(bms_details)
