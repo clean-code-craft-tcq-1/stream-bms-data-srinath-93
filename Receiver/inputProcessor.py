@@ -3,9 +3,8 @@ import sys
 def getBMSData():
     list_temp = []
     list_soc = []
-    while(True):
-        bms_details = input()
-    print(bms_details)
+    for i in sys.stdin:
+        print(i)
     list_temp,list_soc = formatInputStream(bms_details)
     print(list_temp)
     if len(list_temp) >= 5 and len(list_soc) >=5:
