@@ -1,14 +1,15 @@
 import simpleMovingAverage
 import sys
 def getBMSData():
-    list_temp = []
-    list_soc = []
+    temp_val = []
+    soc_val = []
     for i in sys.stdin:
-        print("input",i)
         list_temp,list_soc = formatInputStream(i)
-    print(list_temp)
-    if len(list_temp) >= 5 and len(list_soc) >=5:
-       simpleMovingAverage.calculateAvg(list_temp,list_soc)
+        temp_val.append(list_temp)
+        soc_val.append(list_soc)
+    print(temp_val)
+    if len(temp_val) >= 5 and len(soc_val) >=5:
+       simpleMovingAverage.calculateAvg(temp_val,soc_val)
     
 
 def parameterSeperation(bms_details):
@@ -29,7 +30,6 @@ def parameterSeperation(bms_details):
     return list_temp,list_soc
 
 def formatInputStream(bms_details):
-    bms_details = bms_details.replace('\n',',')
     bms_details = bms_details.replace(' ' ,'')
     bms_details = bms_details.split(',')
     list_temp,list_soc = parameterSeperation(bms_details)
