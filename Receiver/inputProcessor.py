@@ -5,6 +5,7 @@ def getBMSData():
     list_soc = []
     for i in sys.stdin:
         list_temp,list_soc = formatInputStream(i)
+    print(list_temp)
     if len(list_temp) >= 5 and len(list_soc) >=5:
        simpleMovingAverage.calculateAvg(list_temp,list_soc)
     
