@@ -16,7 +16,7 @@ jobs:
         sudo apt-get install -y gcovr
         
     - name: build
-      run: g++ -Wall -Wextra -fprofile-arcs -ftest-coverage -o testchecker ./*.c* ./Tx/*.c
+      run: g++ -Wall -Wextra -fprofile-arcs -ftest-coverage -o Sender ./*.c* ./Tx/*.c
       
     - name: collect coverage
       run: gcovr --gcov-exclude=".*test.*" -r . --html --html-details -o coverage.html
@@ -44,4 +44,4 @@ jobs:
         flake8 . --count --exit-zero --max-line-length=80 --ignore=E111,E121,E126 --statistics
         
     - name: Run
-      run: ./testchecker | python Receiver/inputProcessor.py
+      run: ./Sender | python Receiver/inputProcessor.py
