@@ -7,7 +7,6 @@ def getBMSData():
         list_temp,list_soc = formatInputStream(i)
         temp_val.extend(list_temp)
         soc_val.extend(list_soc)
-    print(temp_val)
     if len(temp_val) >= 5 and len(soc_val) >=5:
        simpleMovingAverage.calculateAvg(temp_val,soc_val)
     
@@ -16,7 +15,6 @@ def parameterSeperation(bms_details):
     dict_query = {}
     list_temp = []
     list_soc = []
-    print(bms_details)
     for i in bms_details:
         try:
             key, val = i.split("=", 1)
