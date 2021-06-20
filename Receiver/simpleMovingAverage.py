@@ -6,17 +6,26 @@ def calculateAvg(list_temp,list_soc):
     final_display_list['soc'] =list_soc
     print(final_display_list)
     displayOutput(final_display_list)
-def displayOutput(bms_data):
-    print('Max Temperature:', bms_data['temperature'][-1])
-    print('Min Temperature:', bms_data['temperature'][0])
-    print('Max SOC:', bms_data['soc'][-1])
-    print('Min SOC:', bms_data['soc'][0])
-    print('Average of last five values of temperature and soc', averageLastFive(bms_data['temperature'],bms_data['soc']))
     
-def averageLastFive(list_temp,list_soc):
-    sum_temp = 0
-    sum_soc = 0
-    for i in range(-1,-6,-1):
-        sum_temp += list_temp[i]
-        sum_soc += list_soc[i]
-        return sum_temp/5,sum_soc/5
+def calculateMin(bms_data,param):
+    return min(bms_data[param])
+def calculateMax(bms_data,param):
+    return max(bms_data[param])
+
+def displayOutput(bms_data):
+    print('Max Temperature:', calculateMax(bms_data,'temperature'))
+    print('Min Temperature:', calculateMin(bms_data,'temperature'))
+    print('Max SOC:', calculateMax(bms_data,'soc'))
+    print('Min SOC:', calculateMin(bms_data,'soc'))
+    print('Average of last five values of temperature', averageLastFive(bms_data['temperature']))
+    print('Average of last five values of soc', averageLastFive(bms_data['soc']))
+    
+def averageLastFive(bms_param_list):
+    sum_list = 0
+    length = len(bms_param_list)
+    if length !=0:
+        for i in range(-1,-6,-1):
+            sum_list += bms_param_list[i]
+        return sum_list/5
+    else:
+        return "Length of the list is Zero"
