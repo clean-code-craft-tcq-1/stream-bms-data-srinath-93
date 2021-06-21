@@ -21,7 +21,7 @@ def parameterSeperation(bms_details):
             dict_query.update({key:float(val)})
             if key == 'Temperature':
                 list_temp.append(dict_query['Temperature'])
-            if key == 'StateOfCharge':
+            else:
                 list_soc.append(dict_query['StateOfCharge'])
         except ValueError:
             continue
