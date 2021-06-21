@@ -10,6 +10,7 @@ class ReceiverTest(unittest.TestCase):
         
     def testMinSOC(self):
         self.assertTrue(simpleMovingAverage.calculateMin({'soc':[70,40,25,9,90,98,88,77,66,55]},'soc') == 9)
+        self.assertTrue(calculateMin({'temperature':[20,19,10,15,18,96,60,80,70,50],'soc':[70,40,25,9,90,98,88,77,66,55]},'temperature')==10)  
     
     def testMaxSOC(self):
         self.assertTrue(simpleMovingAverage.calculateMax({'soc':[70,40,20,99,90,98,88,77,66,55]},'soc') == 99)
